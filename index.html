@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/5292bd8fe4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="filp04.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main space-x-3 space-y-3">
+            <h6 class="text-red-300 hover:text-blue-300">DISC 測驗<br>
+                從以下各題選項中選出與你最接近的答案，不用花太多時間思考，按感覺選出即可。<br>
+
+            </h6>
+            <i class="fa-solid fa-person"></i>
+            <input type="text" name="name" placeholder="請輸入您的姓名" class="name placeholder:text-gray-300">
+            <button class="name_btn">輸入</button>
+        </div>
+        <div class="button">
+            <button class="back">back</button>
+            <button class="next">next</button>
+            <button class="outcome">outcome</button>
+        </div>
+    </div>
+
+
+    <script>
+        var name_btn = document.querySelector(".name_btn");
+        name_btn.addEventListener("click", function () {
+            var str = document.querySelector(".name").value;
+            localStorage.setItem("name", str);
+            alert("歡迎" + str);
+        })
+
+        var question = [, "1.當我和朋友一起用餐時，在選擇用餐或是吃什麼時，我常是",
+            "2.當我去買衣服時，我常是",
+            "3.我的消費習慣是",
+            "4.我的朋友若要以以下一句話來形容我，他們會說",
+            "5.自以下形容中，選擇最能展現自我特色的敘述",
+            "6.我覺得做事的重點，應該是",
+            "7.與同事意見不同時，我常會",
+            "8.請在以下工作環境敘述中，選擇自我最喜歡的敘述",
+            "9.請在以下的溝通方式敘述中，選擇最符合自我的敘述",
+            "10.在會議或公司決議提案時，我所扮演的角色常是",
+            "11.請在以下敘述中，勾選最符合自己的敘述句子",
+            "12.請在以下敘述中，勾選最符合自己的敘述句子",
+            "13.請在以下敘述中，勾選最符合自己的敘述句子",
+            "14.請在以下敘述中，勾選最符合自己的敘述句子",
+            "15.請在以下敘述中，勾選最符合自己的敘述句子",
+            "16.請在以下敘述中，勾選最符合自己的敘述句子",
+            "17.請在以下敘述中，勾選最符合自己的敘述句子",
+            "18.請在以下敘述中，勾選最符合自己的敘述句子",
+            "19.請在以下敘述中，勾選最符合自己的敘述句子",
+            "20.請在以下敘述中，勾選最符合自己的敘述句子",];
+        var answer_D = [, "決定者：大家意見不同時，通常我都是決定者。",
+            "不容易受到店員影響，心中有自己的想法，可以自己做決定。",
+            "找到要買的東西，付錢走人。",
+            "堅定固執。",
+            "有決斷力的，能接受挑戰。",
+            "what，做什麼？重視結果。",
+            "說服對方，聽從自己的意見。",
+            "能讓我決定事情，具領導地位的。",
+            "直接了當，較權威式的。",
+            "據理力爭者。",
+            "我做事一向以具體、短期能達到目標為主；決定快速，期待能立即得到結果。",
+            "我喜歡有變化、激烈且競爭的環境，是個可接受挑戰的人。",
+            "我喜歡按照自己的方法做事，較不在乎別人對我的觀感，較重視成果。",
+            "我擅長於處理棘手的問題。",
+            "我喜歡有競爭，有競爭才能把潛能完全發揮出來。",
+            "我喜歡能力與權威，這是我想要的。",
+            "對直接關係的環境，我較喜歡去掌握及支配他人。",
+            "我在與人溝通時，直接了當的說，不喜歡拐彎抹角。",
+            "我不喜歡別人逗我開心，不喜歡太多話的人。",
+            "我不喜歡被別人支配、指導該如何做事，我較有自己的想法。"];
+        var answer_I = [, "氣氛製造者：詢問大家要吃什麼，很能帶動情緒氣氛。",
+            "店員的親切及好的感受，常會促進我的購買慾望。",
+            "很隨意的逛，不特定買什麼。",
+            "熱情洋溢。",
+            "生動活潑，不拘小節。",
+            "who，誰來做？ 重視感受、過程。",
+            "問其他同事或上司的意見，尋求支持。",
+            "同事相處愉快，處處受歡迎。",
+            "表情豐富，肢體語言較多。",
+            "協調者。",
+            "在本性上，我喜歡跟人互動、建立關係，各式各樣的人都行，甚至陌生人也行。",
+            "我喜歡社交，也喜歡招待人。",
+            "有人跟我意見不一致時，我會很難過、困擾。",
+            "我是個很熱心的人，我喜歡跟別人一起工作。",
+            "我較感性，與人相處或處事較不注意細節。",
+            "我有時情緒化，一旦生氣常氣過頭。有時置身於有趣事務中，往往無法掌握時間。",
+            "在團體中，我喜歡打成一片，活活潑潑有氣氛，有感情的相處。",
+            "我喜歡幫助人，相親相愛。",
+            "我喜歡參加團體活動，因為與很多人在一起感覺很好。",
+            "我是個生氣勃勃、外向的人，別人與我一起工作，常會被激起他們的熱情、被氣氛帶動。"];
+        var answer_S = [, "附和者：吃甚麼都可以，我沒意見。",
+            "我會找熟悉的店購買。",
+            "有一定的消費習慣、店家，不太喜歡改變。",
+            "溫和斯文。",
+            "愛傾聽，喜歡穩定。",
+            "why，為何做？重視品質。",
+            "退讓，以和為貴",
+            "穩定中求發展。",
+            "先聽聽別人意見，而後溫和的表達自己的意見。",
+            "贊同多數者。",
+            "我不喜歡被注意、強出頭，寧可當後補。",
+            "我喜歡成為小組的一份子，遵守一般性程序。",
+            "我知道做些改變是有必要的，即使如此，我還是覺得少冒險來的好。",
+            "我喜歡聽而不喜歡說話，我一開口都說得很委婉溫和。",
+            "我是個理性的組員，順著群眾，具有高度的團體意識。",
+            "我喜歡按部就班，穩紮穩打，慢慢地做事，而不喜歡破斧沈舟般的方式。",
+            "我較遵守既有的步驟做事，不喜歡有很大的變化。",
+            "我不喜歡多變化的環境，期待穩定安全的生活方式。",
+            "對事情我沒有太多要求與意見，喜歡靜靜的有耐心的做。",
+            "我喜歡獨處，若與人生活在一起，會注意儘量不去打擾他人的生活。"];
+        var answer_C = [, "意見提供者：常去否定別人的提議，自己卻又沒意見，也不做任何決定。",
+            "我會思考衣服品質與價錢是否成比例、價錢是否合理。",
+            "我注重東西好不好，較有成本觀念。",
+            "要求完美。",
+            "處世謹慎小心，重數據分析。",
+            "how，怎麼做？重視執行。",
+            "與衝突者協調，找尋最好的意見。",
+            "重視品質、效率的工作。",
+            "較理性的，能較冷靜分析。",
+            "分析所有提案以供參考者。",
+            "我是一個自我約束、很守紀律的人，凡事依既定目標行事。",
+            "我會花很多時間去研究事與人。",
+            "我對自己及他人的期望很高，這些都是為符合我的高標準。",
+            "處理事我較理性，不喜歡把感情牽扯進來，也較少與人閒聊。",
+            "面對事務，我喜歡研究，重視證據與保證。",
+            "我很注意事務與人的細節。",
+            "在沒有掌握事實的真相與更多資料之前，我寧可保持現狀。",
+            "凡事我要求的是準確無誤，講求的是高品質、高標準的處事原則。",
+            "我做事期待有一套經過計劃、設計的標準作業程序，來引導作業方向。",
+            "我較少主動加入別人的閒聊中，當對話題感到有興趣時，我會找更多的資料，謹慎的進行互動。"];
+
+        var main = document.getElementsByClassName("main");
+        var btn_next = document.getElementsByClassName("next");
+        var btn_back = document.getElementsByClassName("back");
+        let btn_outcome = document.getElementsByClassName("outcome");
+        let answer_arr = [];
+        let answer_arr_string = JSON.stringify(answer_arr);
+        localStorage.setItem("finial_answer", answer_arr_string);
+
+        let x = 0;
+        if (x == 0) {
+            btn_back[0].style["display"] = "none";
+        }
+
+        btn_next[x].addEventListener("click", function () {
+            btn_next[0].style["display"] = "none";
+            x = x + 1;
+            if (x == 4) {
+                main[0].innerHTML = `<h5>${question[x]}</h5>
+            <input type="radio" name="${x}" class="answerD" value="d">${answer_D[x]}<br>
+            <input type="radio" name="${x}" class="answerI" value="i">${answer_I[x]}<br>
+            <input type="radio" name="${x}" class="answerS" value="s">${answer_S[x]}<br>
+            <input type="radio" name="${x}" class="answerC" value="c">${answer_C[x]}<br>`
+                btn_next[0].style["display"] = "none";
+                let input = document.querySelectorAll("input");
+                for (let i = 0; i < input.length; i++) {
+                    input[i].addEventListener("change", function () {
+                        let answer = this.value;
+                        answer_arr[x - 1] = this.value;
+                        console.log(answer_arr);
+                        btn_outcome[0].style["display"] = "inline-block";
+                    })
+                }
+            }
+            else if (x < 4) {
+                main[0].innerHTML = `<h5>${question[x]}</h5>
+            <input type="radio" name="${x}" class="answerD" value="d">${answer_D[x]}<br>
+            <input type="radio" name="${x}" class="answerI" value="i">${answer_I[x]}<br>
+            <input type="radio" name="${x}" class="answerS" value="s">${answer_S[x]}<br>
+            <input type="radio" name="${x}" class="answerC" value="c">${answer_C[x]}<br>`
+                btn_back[0].style["display"] = "inline-block";
+                let input = document.querySelectorAll("input");
+                for (let i = 0; i < input.length; i++) {
+                    input[i].addEventListener("change", function () {
+                        let answer = this.value;
+                        console.log(answer);
+                        answer_arr[x - 1] = answer;
+                        btn_next[0].style["display"] = "inline-block";
+                    })
+                }
+            }
+        })
+
+
+        btn_back[x].addEventListener("click", function () {
+            x = x - 1;
+            if (x == 1) {
+                main[0].innerHTML = `<h5>${question[x]}</h5>
+            <input type = "radio" name = "${x}" class="answerD" value="d">${answer_D[x]}<br>
+            <input type = "radio" name = "${x}" class="answerI" value="i">${answer_I[x]}<br>
+            <input type = "radio" name = "${x}" class="answerS" value="s">${answer_S[x]}<br>
+            <input type = "radio" name = "${x}" class="answerC" value="c">${answer_C[x]}<br>`
+                btn_back[0].style["display"] = "none";
+                let input = document.querySelectorAll("input");
+                for (i = 0; i < input.length; i++) {
+                    input[i].addEventListener("change", function () {
+                        answer_arr[x - 1] = this.value;
+                        console.log(answer_arr);
+                    })
+                }
+            }
+            else if (x > 0) {
+                main[0].innerHTML = `<h5>${question[x]}</h5>
+            <input type = "radio" name = "${x}" class="answerD" value="d">${answer_D[x]}<br>
+            <input type = "radio" name = "${x}" class="answerI" value="i">${answer_I[x]}<br>
+            <input type = "radio" name = "${x}" class="answerS" value="s">${answer_S[x]}<br>
+            <input type = "radio" name = "${x}" class="answerC" value="c">${answer_C[x]}<br>`
+                btn_next[0].style["display"] = "inline-block";
+                let input = document.querySelectorAll("input");
+                for (i = 0; i < input.length; i++) {
+                    input[i].addEventListener("change", function () {
+                        answer_arr[x - 1] = this.value;
+                        console.log(answer_arr);
+                    })
+                }
+            }
+        })
+
+        btn_outcome[0].addEventListener("click", function () {
+            let answer_count = answer_arr.reduce((obj, item) => {
+                if (item in obj) {
+                    obj[item]++;
+                } else {
+                    obj[item] = 1;
+                }
+                return obj;
+            }, { d: 0, i: 0, s: 0, c: 0 })
+            console.log(answer_count);
+            let outcomeArr = ["老虎型（支配型Dominance）", "孔雀型（表達型Extroversion）", "無尾熊型（耐心型Pace/Patience）", "貓頭鷹型（精確型Conformity）"];
+            let outcomeItem = ["「老虎」一般企圖心強烈，喜歡冒險，個性積極，競爭力強，凡事喜歡掌控全局發號施令，不喜歡維持現狀，但行動力強，目標一經確立便會全力以赴。它的缺點是在決策上較易流於專斷，不易妥協，故較容易與人發生爭執摩擦。如果下屬中有「老虎」要給予他更多的責任，他會覺得自己有價值，佈置工作時注意結果導向，如果上司是老虎則要在他面前展示自信果斷的一面，同時避免在公衆場合與他唱反調。中外名人中毛澤東、朱鎔基以及前英國首相柴契爾夫人爲較典型的老虎型，德國爲老虎型人數最多的國家。",
+                "「孔雀」熱情洋溢，好交朋友，口才流暢，重視形象，擅于人際關係的建立，富同情心，最適合人際導向的工作。缺點是容易過於樂觀，往往無法估計細節，在執行力度上需要高專業的技術精英來配合。對孔雀要以鼓勵爲主給他表現機會保持他的工作激情，但也要注意他的情緒化和防止細節失誤。孫中山、克林頓、雷根、戈巴契夫都是這一類型的人，美國是孔雀型人最多的國家。",
+                "「無尾熊」屬於行事穩健，不會誇張強調平實的人，性情平和對人不喜歡製造麻煩，不興風作浪，溫和善良，在別人眼中常讓人誤以爲是懶散不積極，但只要決心投入，絕對是「路遙知馬力」的最佳典型。對考拉要多給予關注和溫柔想方設法挖掘他們內在的潛力。印度的甘地、蔣經國、宋慶齡都是此類型的人，一般而言，宗教信仰者都是「無尾熊」，而中國正是無尾熊型最多的搖籃。",
+                "「貓頭鷹」傳統而保守，分析力強，精確度高是最佳的品質保證者，喜歡把細節條例化，個性拘謹含蓄，謹守分寸忠於職責，但會讓人覺得「吹毛求疵」。「貓頭鷹」清晰分析道理說服別人很有一套，處事客觀合理，只是有時會鑽在牛角尖裏拔不出來。古代斷案如神的包拯（包青天）正是此種類型的典範。日本是這個類型人數較多的國家。"]
+            let countArr = [answer_count.d, answer_count.i, answer_count.s, answer_count.c];
+            // let max = Math.max.apply(null, countArr);
+            let max = 0;
+            for (i = 0; i < countArr.length; i++) {
+                if (countArr[i] > max) {
+                    max = countArr[i]
+                }
+            } console.log(max);
+
+
+            // let answerFin = false;
+
+            // function finAnswer() {
+
+            //     for (let i = 0; i < 4; i++) {
+            //         for (let j = 0; j < 4; j++) {
+            //             if (i === j) continue; // 避免重複檢查相同的元素
+            //             if (max === countArr[i] && countArr[i] === countArr[j]) {
+            //                 main[0].innerHTML = `change`;
+            //                 answerFin = true;
+            //                 return answerFin;
+            //             }
+            //         }
+            //     }
+
+
+            //     for (let i = 0; i < 4; i++) {
+            //         for (let j = 0; j < 4; j++) {
+            //             if (i === j) continue; // 避免重複檢查相同的元素
+            //             if (max === countArr[i] && countArr[i] - countArr[j] > 2) {
+            //                 main[0].innerHTML = `您是 ${outcomeArr[i]}<br>${outcomeItem[i]}`;
+            //                 answerFin = true;
+            //                 return answerFin;
+            //             }
+            //         }
+            //     }
+
+            //     // 如果以上兩個迴圈都沒有滿足條件，將 answerFin 設為 true
+            //     answerFin = true;
+            //     main[0].innerHTML = `<p>您是 變色龍類型<br>您屬全方位人物，既沒有凸出的個性，對事也沒有甚麼強烈的個人意識型態，事事求中立並傾向站在沒有立場的位置，故在衝突的環境中，是個能遊走於折衝間的高手。由於他們能密切地融合於各種環境中，他們可以為企業進行對內對外的各種交涉，只要任務確實和目標清楚，他們都能恰如其分完成其任務，以善變為其專長。</p>`;
+            //     return answerFin;
+            // }
+
+            // finAnswer();
+
+
+
+
+
+
+
+            function finAnswer() {
+                for (let i = 0; i < 4; i++) {
+                    for (let j = 0; j < 4; j++) {
+                        if (i === j) continue;
+                        if (max === countArr[i] && countArr[i] === countArr[j]) {
+                            main[0].innerHTML = `change`;
+                            return true;
+                        }
+                    }
+                }return false;
+            }
+
+
+            if (finAnswer() === false) {
+                function finAnswer_two() {
+                    for (let i = 0; i < 4; i++) {
+                        for (let j = 0; j < 4; j++) {
+                            if (i === j) continue;
+                            if (max === countArr[i] && countArr[i] - countArr[j] > 2) {
+                                main[0].innerHTML = `您是 ${outcomeArr[i]}<br>${outcomeItem[i]}`;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (finAnswer_two() === false) {
+                main[0].innerHTML = `<p>您是 變色龍類型<br>您屬全方位人物，既沒有凸出的個性，對事也沒有甚麼強烈的個人意識型態，事事求中立並傾向站在沒有立場的位置，故在衝突的環境中，是個能遊走於折衝間的高手。由於他們能密切地融合於各種環境中，他們可以為企業進行對內對外的各種交涉，只要任務確實和目標清楚，他們都能恰如其分完成其任務，以善變為其專長。</p>`;
+            }
+
+            finAnswer();
+            main[0].style["height"] = "400px";
+            btn_outcome[0].style["display"] = "none";
+        
+        })
+
+
+
+    </script>
+</body>
+
+</html>
